@@ -1,0 +1,4 @@
+open('file').read()			#将整个文件读取为字符串
+open('file').read(N)		#将后面N个字节读取为字符串
+open('file').readlines()	#将整个文件读取为单行字符串组成的列表
+open('file').readline()		#跨过'\n'读取下一行

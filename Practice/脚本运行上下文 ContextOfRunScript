@@ -1,0 +1,75 @@
+1.当前工作路径CWD
+print('my os.getcwd =>',os.getcwd())
+print('\nmy sys.path=>',sys.path[:6])
+
+2.命令行参数
+import sys
+print(sys.argv)
+
+PS E:\Code\Python Core\unit 3> python.exe .\testargv.py 1
+['.\\testargv.py', '1']
+
+3.解析命令行参数
+PS E:\Code\Python Core\unit 3> python.exe .\testargv2.py
+{}
+PS E:\Code\Python Core\unit 3> python.exe .\testargv2.py -o hello -i data
+data
+{'-o': 'hello', '-i': 'data'}
+
+3.获取shell变量(维持的是一个字典)
+os.environ
+
+4.shell变量要点：父进程,putenv,getenv
+对于修改shell变量，赋值的键值被传递解释器外部，然后向下传递个子进程，但是它永远不会向上传递给父进程，包括系统的shell。
+在程序中对shell所做的设置只对程序本身已经它所衍生的子程序有效。
+
+5.标准流重定向到文件或者程序(不依赖shell命令的重定向)
+---		任何提供了类似文件read方法的对象可以指定给sys.stdin,以从该对象的read		方法读取输入。
+---		任何定义了类似与文件write方法的对象可以指定给sys.stdout，所以的标准输出
+		将发送到该对象的方法上。
+E:\Code\Python Core\unit 3>python teststreams.py < input.txt
+hello stream world
+Enter a number>8 squared is 64
+Enter a number>6 squared is 36
+Enter a number>Bye
+
+E:\Code\Python Core\unit 3>python teststreams.py < input.txt >output.txt
+E:\Code\Python Core\unit 3>type output.txt
+hello stream world
+Enter a number>8 squared is 64
+Enter a number>6 squared is 36
+Enter a number>Bye
+
+使用特殊的借口从键盘而非标准输入 msvcrt (Windows平台)
+E:\Code\Python Core\unit 3>python teststreams.py < input.txt |python moreplus.py
+
+hello stream world
+Enter a number>8 squared is 64
+Enter a number>6 squared is 36
+Enter a number>Bye
+
+重定向流到Python对象 redirect.py
+E:\Code\Python Core\unit 3>python test.py
+hello stream world
+Enter a number>4 squared is 16
+Enter a number>5 squared is 25
+Enter a number>6 squared is 36
+Enter a number>Bye
+
+6.用管道链接程序
+在Windows平台或者Unix平台在俩个shell命令使用'|'可以将一个程序的标准输出
+发送到另一个程序的标准输入。
+E:\Code\Python Core\unit 3>python teststreams.py < input.txt |python moreplus.py
+
+io.StringIO和io.BytesIO工具类
+用于将标准输入输出流重定向的Python对象的标准库模块
+>>> from io import StringIO
+>>> buff=StringIO()
+>>> buff.write('spam\n')
+5
+>>> buff.getvalue()
+'spam\n'
+
+捕获stderr流
+print调用的重定向语法
+print(stuff,file=afile )

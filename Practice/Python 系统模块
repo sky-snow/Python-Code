@@ -1,0 +1,108 @@
+glob  用于文件名扩展
+socket 用于网络连接和进程通信（IPC）
+threading,_thread,queue 用于运行和同步化线程
+time，timeit 用于获取系统时间和相关细节
+subprocess,multiprocessing 用于启动和控制并行进程
+signal，select，shutil,tempfile 用于多种系统相关任务
+
+介绍sys module
+>>> import sys
+>>> sys.platform
+'win32'
+>>> sys.maxsize
+9223372036854775807
+>>> sys.version
+'3.6.1 (v3.6.1:69c0db5, Mar 21 2017, 18:41:36) [MSC v.1900 64 bit (AMD64)]'
+
+模块搜索路径
+>>> sys.path
+['', 'C:\\Python3.6.1\\Lib\\idlelib', 'C:\\Python3.6.1\\python36.zip', 'C:\\Python3.6.1\\DLLs', 'C:\\Python3.6.1\\lib', 'C:\\Python3.6.1', 'C:\\Python3.6.1\\lib\\site-packages']
+>>> sys.path.append(r'E:\Code\Python Core\unit 1\oop')
+>>> sys.path
+['', 'C:\\Python3.6.1\\Lib\\idlelib', 'C:\\Python3.6.1\\python36.zip', 'C:\\Python3.6.1\\DLLs', 'C:\\Python3.6.1\\lib', 'C:\\Python3.6.1', 'C:\\Python3.6.1\\lib\\site-packages', 'E:\\Code\\Python Core\\unit 1\\oop']
+
+已加载模块表
+sys.modules
+
+异常的详细信息
+traceback
+
+sys模块导出的其他工具
+sys.argv 显示由字符串组成的列表的命令行参数
+sys.stdin sys.stdout sys.stderr
+sys.exit 可以使程序强制退出
+
+
+介绍os模块
+常用os模块工具
+Shell变量   		os.environ
+运行程序			os.system,os.popen,os.execv,os.spawnv
+派生进程			os.fork,os.pipe,os.waitpid,os.kill
+文件描述符，文件锁	os.open,os.read,os,write
+文件处理			os.remove,os.rename,os.mkfifo,os.mkdir,os.rmdir
+管理工具			os.getcwd,os.chdir,os.chmod,os.getpid,os.listdir,os.access
+移植工具			os.sep,os.pathsep,os.curdir,os.path.split,os.path.join
+路径名工具			os.path.exists('path'),os.path.isdir('path'),
+					os.path.getsize('path'),os.abspath('')
+
+可移植的常量(跨平台)
+>>> os.pathsep,os.sep,os.pardir,os.curdir,os.linesep
+(';', '\\', '..', '.', '\r\n')
+os.sep(Python底层运行平台所采用的目录组分隔符号)
+Windows预设"\",POSIX为"/",某些Macs为":"
+os.pathsep提供用于目录列表中分隔目录的字符,POSIX使用":",DOS和Windows使用";"
+
+对于os.sep与os.pathsep 尽量使用一个，推荐使用os.pathsep
+>>> os.path.split(r'C:\Python3.6.1\python.exe')
+('C:\\Python3.6.1', 'python.exe')
+>>> os.path.splitext(r'C:\Python3.6.1\python.exe')
+('C:\\Python3.6.1\\python', '.exe')
+
+在脚本里运行Shell命令
+os.system			早Python脚本里运行shell命令
+os.popen			运行shell并与其输入或输出流相接
+
+
+运行shell命令
+>>> os.system('dir')
+0
+
+与shell命令进行通信
+os.popen可以获取命令的输出/输入，得到；类似文件的对象
+>>> open('hello.py').read()
+"#a python test\nprint('the meaning of life')"
+>>> text=os.popen('type hello.py').read()
+>>> text
+"#a python test\nprint('the meaning of life')"
+>>> listing=os.popen('dir C:\\HP').readlines()
+>>> listing
+[' 驱动器 C 中的卷没有标签。\n', ' 卷的序列号是 6021-25C0\n', '\n', ' C:\\HP 的目录\n', '\n', '2016/06/24  21:09    <DIR>          .\n', '2016/06/24  21:09    <DIR>          ..\n', '2016/05/17  11:13    <DIR>          Data\n', '               0 个文件              0 字节\n', '               3 个目录 75,500,810,240 可用字节\n']
+
+与os.system os.popen 相同功能的模块subprocess
+子进程模块允许您生成新进程，连接到输入/输出/错误管道，并获取其返回代码。 该模块意图替换几个较旧的模块和功能
+os.system
+os.spawn*
+
+>>> import subprocess
+>>> subprocess.call('python hello.py')
+the meaning of life
+0
+
+shell命令的局限：在不同的平台下，命令需要作出改变
+
+
+os.startfile() 类型与Windows平台下的start命令
+
+os模块导出的其他工具
+os.environ			获取和设置shell环境变量
+os.fork				在类Unix系统下派生新的子进程
+os.pipe				负责程序间通信
+os.execlp			启动新程序
+os.spawnv			启动带有底层控制的新程序
+os.open				打开基于底层描述符的文件
+os.mkdir
+os.mkfifo			创建新的命名管道
+os.stat 			获取文件底层信息
+os.remove			根据路径名删除文件
+os.walk				将函数或者循环应用于整个目录树的各部分
+
