@@ -1,0 +1,511 @@
+对象有类型，变量无类型
+字符串
+字符串是一种序列，所有序列都有如下基本操作：
+1. len()：求序列长度
+2. +：连接 2 个序列 或者使用join
+3. *: 重复序列元素(乘法)
+4. in :判断元素是否存在于序列中
+5. max() :返回最大值
+6. min() :返回最小值
+7. cmp(str1,str2) :比较 2 个序列值是否相同
+8.split 字符串分割，返回list
+9.去掉字符串两头的空格
+	• S.strip() 去掉字符串的左右空格
+	• S.lstrip() 去掉字符串的左边空格
+	• S.rstrip() 去掉字符串的右边空格
+
+列表是可以修改的。这种修改，不是复制一个新的，而是在原地进行修改。
+原地修改列表
+• 既然是原地修改，就不返回值
+>>> lst = ['Python','qiwsir']
+>>> id(lst)
+3069501388L
+>>> lst.append(new)
+
+>>> lst
+['Python', 'qiwsir', [1, 2, 3]]
+>>> id(lst)
+3069501388L
+>>> one = ["good","good","study"]
+>>> another = one.extend(["day","day","up"]) #对于没有提供返回值的函数，如果要这样，结果是：
+>>> another #这样的，什么也没有得到。
+>>> one
+['good', 'good', 'study', 'day', 'day', 'up']
+
+list常用操作
+切片 追加函数append与extend len(list) 
+list.count(element) 返回的是数字|list.index(element) 如果不存在则报错
+list.insert(index,element) 在任意位置追加元素
+list.remove(x) 
+Remove the first item from the list whose value is x. It is an error if there is no such item.
+list.pop([i])
+list.reverse()  list.sort()
+
+list 和 str 的最大区别是：list 是可以改变的，str 不可变
+多维 list
+list 和 str 转化  split() 和 join()
+
+元组 tuple 元素多样性，近 list  不能原地修改，近 str
+tuple 是一种序列类型的数据，这点上跟 list/str 类似。它的特点就是其中的元素不能更改，这点上跟 list不同，倒是跟 str 类似；它的元素又可以是任何类型的数据，这点上跟 list 相同，但不同于 str。
+数据元素可以重复
+
+所有在 list 中可以修改 list 的方法，在 tuple 中，都失效。
+分别用 list()和 tuple()能够实现两者的转化:
+>>> a=[1,1,1]
+>>> b=tuple(a)
+>>> b
+(1, 1, 1)
+>>> c=list(b)
+>>> c
+[1, 1, 1]
+
+一般认为,tuple 有这类特点,并且也是它使用的情景:
+• Tuple 比 list 操作速度快。如果您定义了一个值的常量集，并且唯一要用它做的是不断地遍历它，请使用 tup
+le 代替 list。
+• 如果对不需要修改的数据进行 “写保护”，可以使代码更安全。使用 tuple 而不是 list 如同拥有一个隐含的
+assert 语句，说明这一数据是常量。如果必须要改变这些值，则需要执行 tuple 到 list 的转换 (需要使用一
+个特殊的函数)。
+• Tuples 可以在 dictionary（字典，后面要讲述） 中被用做 key，但是 list 不行。Dictionary key 必须是不
+可变的。Tuple 本身是不可改变的，但是如果您有一个 list 的 tuple，那就认为是可变的了，用做 dictionary
+key 就是不安全的。只有字符串、整数或其它对 dictionary 安全的 tuple 才可以用作 dictionary key。
+• Tuples 可以用在字符串格式化中
+
+
+字典
+字典可以原地修改，即它是可变的
+在一个 dict 中，键是唯一的，不能重复。值则是对应于键，值可以重复。键值之间用(:)英文的分
+号，每一对键值之间用英文的逗号(,)隔开。
+>>> ad = {}
+>>> id(ad)
+3072770636L
+>>> ad["name"] = "qiwsir"
+>>> ad
+{'name': 'qiwsir'}
+>>> id(ad)
+3072770636L
+
+利用元组在建构字典，方法如下：
+>>> name = (["first","Google"],["second","Yahoo"])
+>>> website = dict(name)
+>>> website
+{'second': 'Yahoo', 'first': 'Google'}
+或者
+>>> ad = dict(name="qiwsir", age=42)
+>>> ad
+{'age': 42, 'name': 'qiwsir'}
+或者使用fromkeys
+>>> website = {}.fromkeys(("third","forth"),"facebook")
+>>> website
+{'forth': 'facebook', 'third': 'facebook'}
+
+
+字典虽然跟列表有很大的区别，但是依然有不少类似的地方。它的基本操作：
+• len(d)，返回字典(d)中的键值对的数量
+• d[key]，返回字典(d)中的键(key)的值
+• d[key]=value，将值(value)赋给字典(d)中的键(key)
+• del d[key]，删除字典(d)的键(key)项（将该键值对删除）
+• key in d，检查字典(d)中是否含有键为 key 的项
+
+使用字典实现字符串格式化操作
+>>> city_code = {"suzhou":"0512", "tangshan":"0315", "hangzhou":"0571"}
+>>> " Suzhou is a beautiful city, its area code is %(suzhou)s" % city_code
+' Suzhou is a beautiful city, its area code is 0512'
+在网页中的实际应用
+>>> temp = "<html><head><title>%(lang)s<title><body><p>My name is %(name)s.</p></body></head></html>"
+>>> my = {"name":"qiwsir", "lang":"python"}
+>>> temp % my
+'<html><head><title>python<title><body><p>My name is qiwsir.</p></body></head></html>'
+
+字典常用方法
+1.浅拷贝copy() 会开辟新空间，但是键对应的value是对象，则指向统一对象，浅拷贝。
+>>> x = {"name":"qiwsir", "lang":["Python", "java", "c"]}
+>>> y = x.copy()
+>>> y
+{'lang': ['Python', 'java', 'c'], 'name': 'qiwsir'}
+>>> id(x)
+3072241012L
+>>> id(y)
+3072241284L
+>>> y["lang"].remove("c")
+>>> y
+{'lang': ['Python', 'java'], 'name': 'qiwsir'}
+>>> x
+{'lang': ['Python', 'java'], 'name': 'qiwsir'}
+>>> y["name"] = "laoqi"
+>>> y
+{'lang': ['python', 'java'], 'name': 'laoqi'}
+>>> x
+{'lang': ['python', 'java'], 'name': 'qiwsir'}
+>>> id(x)
+3072241012L
+>>> id(y)
+3072241284L
+>>> id(x["lang"])
+3072243276L
+>>> id(y["lang"])
+3072243276L
+列表是同一个对象。
+2.深拷贝
+>>> import copy
+>>> z = copy.deepcopy(x)
+>>> z
+{'lang': ['python', 'java'], 'name': 'qiwsir'}
+>>> id(x["lang"])
+3072243276L
+>>> id(z["lang"])
+3072245068L
+
+clear()
+clear 的含义，将字典清空，得到的是“空”字典。这个上节说的 del 有着很大的区别。 del 是将字典
+删除，内存中就没有它了，不是为“空”。
+
+get,setdefault
+dict.get() 不会报错返回None和 dict['key'] key不存在的话会报错
+d.get("name",'qiwsir') 的方式，如果不能得到键"name"的值，就返回后面指定的值"qiwsir"。这就是文档中那句话： D[k] if k in D, else d. 的含义。这样做，并没有影响原来的字典。
+
+setdefault
+>>> d
+{'lang': 'Python'}
+>>> d.setdefault("lang")
+'Python'
+>>> d.setdefault("name","qiwsir")
+'qiwsir'
+>>> d
+{'lang': 'Python', 'name': 'qiwsir'}
+
+items/iteritems ,keys/iterkeys ,values/itervalues
+iterms以列表内嵌套元祖的形式返回字典里的元素
+>>> dd = {"name":"qiwsir", "lang":"python", "web":"www.itdiffer.com"}
+>>> dd_kv = dd.items()
+>>> dd_kv
+[('lang', 'Python'), ('web', 'www.itdiffer.com'), ('name', 'qiwsir')]
+iteritems
+>>> dd
+{'lang': 'Python', 'web': 'www.itdiffer.com', 'name': 'qiwsir'}
+>>> dd_iter = dd.iteritems()
+>>> type(dd_iter)
+<type 'dictionary-itemiterator'>
+>>> dd_iter
+<dictionary-itemiterator object at 0xb72b9a2c>
+>>> list(dd_iter)
+[('lang', 'Python'), ('web', 'www.itdiffer.com'), ('name', 'qiwsir')]
+另外两组，含义跟这个相似，只不过是得到 key 或者 value。
+>>> dd
+{'lang': 'Python', 'web': 'www.itdiffer.com', 'name': 'qiwsir'}
+>>> dd.keys()
+['lang', 'web', 'name']
+>>> dd.values()
+['Python', 'www.itdiffer.com', 'qiwsir']
+
+pop, popitem
+pop 函数中的参数是不能省略的，这跟列表中的那个 pop 有所不同
+D.pop(k[,d]) 是以字典的键为参数，删除指定键的键值对，当然，如果输入对应的值也可以，那个是可选的。
+>>> dd
+{'lang': 'Python', 'web': 'www.itdiffer.com', 'name': 'qiwsir'}
+>>> dd.pop("name")
+'qiwsir'
+有意思的是 D.popitem() 倒是跟 list.pop() 有相似之处，不用写参数（list.pop 是可以不写参数），但是， D.p
+opitem() 不是删除最后一个，前面已经交代过了，dict没有顺序，也就没有最后和最先了，它是随机删除一
+个，并将所删除的返回。返回的是一个tuple
+
+update
+这个函数没有返回值，或者说返回值是 None,它的作用就是更新字典。其参数可以是字典或者某种可迭代
+的数据类型
+has_key
+这个函数的功能是判断字典中是否存在某个键
+
+• 能够索引的，如 list/str/tuple，其中的元素可以重复
+• 可变的，如 list/dict，即其中的元素/键值对可以原地修改
+• 不可变的，如 str/int/tuple，即不能进行原地修改
+• 无索引序列的，如 dict，即其中的元素（键值对）没有排列顺序
+
+集合 set
+有的可变，有的不可变；元素无次序，不可重复
+>>> s1 = set("qiwsir")
+>>> s1
+set(['q', 'i', 's', 'r', 'w'])
+
+python的set和其他语言类似, 是一个无序不重复元素集, 基本功能包括关系测试和消除重复元素. 集合对象还支持union(联合), intersection(交), difference(差)和sysmmetric difference(对称差集)等数学运算.
+
+在创建集合的时候，如果发现了重复的元素，就会过滤一下，剩下不重复的。而且，从 s2 的创建可以看出，查看
+结果是显示的元素顺序排列与开始建立是不同，完全是随意显示的，这说明集合中的元素没有序列。
+
+>>> s3 = {"facebook",123} #通过{}直接创建
+>>> s3
+set([123, 'facebook'])
+
+现在遇到的集合，其元素也要是“可哈希”的。上面例子中，试图将字典、列表作为元素的元素，就报错了。而且报错信息中明确告知 list/dict 是不可哈希类型，言外之意，里面的元素都应该是可哈希类型。
+
+>>> b_set.add([1,2,3]) #报错.list 是不可哈希的，集合中的元素应该是 hashable 类型。
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+TypeError: unhashable type: 'list'
+>>> b_set.add('[1,2,3]') #可以这样!
+>>> b_set
+set(['[1,2,3]', 'h', 'o', 'n', 'p', 't', 'qiwsir', 'y'])
+
+>>> s1
+set(['a', 'b'])
+>>> s2
+set(['github', 'qiwsir'])
+>>> s1.update(s2) #把 s2 的元素并入到 s1 中.
+>>> s1 #s1 的引用对象修改
+set(['a', 'qiwsir', 'b', 'github'])
+>>> s2 #s2 的未变
+set(['github', 'qiwsir'])
+
+
+pop, remove, discard, clear
+>>> b_set
+set(['[1,2,3]', 'h', 'o', 'n', 'p', 't', 'qiwsir', 'y'])
+>>> b_set.pop() #从 set 中任意选一个删除,并返回该值
+'[1,2,3]'
+>>> b_set.pop()
+'h'
+>>> b_set.pop()
+'o'
+>>> b_set
+set(['n', 'p', 't', 'qiwsir', 'y'])
+
+set.remove(obj) 中的 obj,必须是 set 中的元素,否则就报错.
+跟 remove(obj)类似的还有一个 discard(obj):
+set.clear(),它的功能是:Remove all elements from this set.
+
+不变的集合
+frozenset()  那么这种集合就是 hashable 类型——可哈希。
+>>> f_set = frozenset("qiwsir")
+>>> f_set
+frozenset(['q', 'i', 's', 'r', 'w'])
+>>> f_set.add("python") #报错，不能修改，则无此方法
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+AttributeError: 'frozenset' object has no attribute 'add'
+>>> a_set = set("github") #对比看一看，这是一个可以原处修改的 set
+>>> a_set
+set(['b', 'g', 'i', 'h', 'u', 't'])
+>>> a_set.add("python")
+>>> a_set
+set(['b', 'g', 'i', 'h', 'python', 'u', 't'])
+
+集合间的运算
+== !=  
+判断集合A是否是集合B的子集可以使用A<B返回true则是子集，否则不是。另外，还可以使用函数
+A.issubset(B) 判断。
+ A、B 的并集，即 A、B 所有元素
+ 可以使用的符号是“|”，是一个半角状态写的竖线，输入方法是在英文状态下，按下"shift"加上右方括号右边的那个键。找找吧。表达式是 A | B .也可使用函数 A.union(B) 得到的结果就是两个集合并集，注意，这个结果
+ 是新生成的一个对象，不是将结合 A 扩充。 
+  A、B 的交集，即 A、B 所公有的元素 &
+  • A 相对 B 的差（补） -
+
+ 1.可以改变:
+ 2.元素唯一:
+ 3.是否可以包含不同类型元素
+ 4.是否可以索引
+ 5.是否可以hash
+ 6.构建方法与转换方法
+ 7.删除，置空，插入，排序，反转，查询
+ 8.是否有序
+
+
+语句:
+不换行 print ,
+import   if
+if 条件 1:
+	执行的内容 1
+elif 条件 2:
+	执行的内容 2
+elif 条件 3：
+	执行的内容 3
+else:
+	执行的内容 4
+
+总结一下：A = Y if X else Z
+什么意思，结合前面的例子，可以看出：
+• 如果 X 为真，那么就执行 A=Y
+• 如果 X 为假，就执行 A=Z
+
+range(start,stop[, step])
+
+并行迭代
+zip函数
+>>> a = "qiwsir"
+>>> b = "github"
+>>> zip(a,b)
+[('q', 'g'), ('i', 'i'), ('w', 't'), ('s', 'h'), ('i', 'u'), ('r', 'b')]
+如果序列长度不同，那么就以"the length of the shortest argument sequence"为准。
+>>> c = [1,2,3]
+>>> d = [9,8,7,6]
+>>> zip(c,d)
+[(1, 9), (2, 8), (3, 7)]
+>>> m = {"name","lang"}
+>>> n = {"qiwsir","python"}
+>>> zip(m,n)
+[('lang', 'python'), ('name', 'qiwsir')]
+求和
+>>> d = []
+>>> for x,y in zip(a,b):
+... d.append(x+y)
+...
+>>> d
+[10, 10, 10, 10, 10]
+
+>>> result
+[(2, 11), (4, 13), (6, 15), (8, 17)]
+>>> zip(*result)
+[(2, 4, 6, 8), (11, 13, 15, 17)]
+
+问题：有一个 dictionary，myinfor = {"name":"qiwsir","site":"qiwsir.github.io","lang":"python"},将这个字典变
+换成：infor = {"qiwsir":"name","qiwsir.github.io":"site","python":"lang"}
+
+>>> infor = {}
+>>> for k,v in myinfor.items():
+... infor[v]=k
+...
+>>> infor
+{'python': 'lang', 'qiwsir.github.io': 'site', 'qiwsir': 'name'}
+或者
+>>> dict(zip(myinfor.values(),myinfor.keys()))
+{'python': 'lang', 'qiwsir.github.io': 'site', 'qiwsir': 'name'}
+
+enumerate
+>>> seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+>>> list(enumerate(seasons))
+[(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]
+>>> list(enumerate(seasons, start=1))
+[(1, 'Spring'), (2, 'Summer'), (3, 'Fall'), (4, 'Winter')]
+
+>>> squares = [x**2 for x in range(1,10)]
+>>> squares
+[1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+函数式编程
+filter、map、reduce、lambda、yield
+lambda
+>>> (lambda x:x**2)(4) #返回 4 的平方
+16
+
+>>> lamb = [ lambda x:x,lambda x:x**2,lambda x:x**3,lambda x:x**4 ]
+>>> for i in lamb:
+... print i(3),
+...
+3 9 27 81
+
+map(func,seq)
+func 是一个函数，seq 是一个序列对象。在执行的时候，序列对象中的每个元素，按照从左到右的顺序，依次被
+取出来，并塞入到 func 那个函数里面，并将 func 的返回值依次存到一个 list 中。
+>>> numbers
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] #把列表中每一项都加 3
+>>> map(add,numbers) #add(x) 是上面讲述的那个函数，但是这里只引用函数名称即可
+[3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+>>> map(lambda x: x+3,numbers) #用 lambda 当然可以啦
+[3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+reduce
+map是上下运算，reduce 是横着逐个元素进行运算。
+>>> reduce(lambda x,y: x+y,[1,2,3,4,5])
+15
+
+filter
+>>> numbers = range(-5,5)
+>>> numbers
+[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]
+>>> filter(lambda x: x>0, numbers)
+[1, 2, 3, 4]
+
+数学运算(7个)
+类型转换(24个)
+序列操作(8个)
+对象操作(7个)
+反射操作(8个)
+变量操作(2个)
+交互操作(2个)
+文件操作(1个)
+编译执行(4个)
+装饰器(3个)
+
+数学运算(7个)
+abs：求数值的绝对值
+divmod：返回两个数值的商和余数
+max：返回可迭代对象中的元素中的最大值或者所有参数的最大值
+min：返回可迭代对象中的元素中的最小值或者所有参数的最小值
+pow：返回两个数值的幂运算值或其与指定整数的模值
+round：对浮点数进行四舍五入求值
+sum：对元素类型是数值的可迭代对象中的每个元素求和
+
+类型转换(24个)
+bool：根据传入的参数的逻辑值创建一个新的布尔值
+int：根据传入的参数创建一个新的整数
+float：根据传入的参数创建一个新的浮点数
+complex：根据传入参数创建一个新的复数
+str：返回一个对象的字符串表现形式(给用户)
+bytearray：根据传入的参数创建一个新的字节数组
+bytes：根据传入的参数创建一个新的不可变字节数组
+memoryview：根据传入的参数创建一个新的内存查看对象
+ord：返回Unicode字符对应的整数
+chr：返回整数所对应的Unicode字符
+bin：将整数转换成2进制字符串
+oct：将整数转化成8进制数字符串
+hex：将整数转换成16进制字符串
+tuple：根据传入的参数创建一个新的元组
+list：根据传入的参数创建一个新的列表
+dict：根据传入的参数创建一个新的字典
+set：根据传入的参数创建一个新的集合
+frozenset：根据传入的参数创建一个新的不可变集合
+enumerate：根据可迭代对象创建枚举对象
+range：根据传入的参数创建一个新的range对象
+iter：根据传入的参数创建一个新的可迭代对象
+slice：根据传入的参数创建一个新的切片对象
+super：根据传入的参数创建一个新的子类和父类关系的代理对象
+object：创建一个新的object对象
+
+序列操作(8个)
+all：判断可迭代对象的每个元素是否都为True值
+any：判断可迭代对象的元素是否有为True值的元素
+filter：使用指定方法过滤可迭代对象的元素
+map：使用指定方法去作用传入的每个可迭代对象的元素，生成新的可迭代对象
+next：返回可迭代对象中的下一个元素值
+reversed：反转序列生成新的可迭代对象
+sorted：对可迭代对象进行排序，返回一个新的列表
+zip：聚合传入的每个迭代器中相同位置的元素，返回一个新的元组类型迭代器
+
+对象操作(7个)
+help：返回对象的帮助信息
+dir：返回对象或者当前作用域内的属性列表
+id：返回对象的唯一标识符
+hash：获取对象的哈希值
+type：返回对象的类型，或者根据传入的参数创建一个新的类型
+len：返回对象的长度
+format：格式化显示值
+vars：返回当前作用域内的局部变量和其值组成的字典，或者返回对象的属性列表
+
+反射操作(8个)
+__import__：动态导入模块
+isinstance：判断对象是否是类或者类型元组中任意类元素的实例
+issubclass：判断类是否是另外一个类或者类型元组中任意类元素的子类
+hasattr：检查对象是否含有属性
+getattr：获取对象的属性值
+setattr：设置对象的属性值
+delattr：删除对象的属性
+callable：检测对象是否可被调用
+
+变量操作(2个)
+globals：返回当前作用域内的全局变量和其值组成的字典
+locals：返回当前作用域内的局部变量和其值组成的字典
+
+交互操作(2个)
+print：向标准输出对象打印输出
+input：读取用户输入值
+
+文件操作(1个)
+open：使用指定的模式和编码打开文件，返回文件读写对象
+
+编译执行(4个)
+compile：将字符串编译为代码或者AST对象，使之能够通过exec语句来执行或者eval进行求值
+eval：执行动态表达式求值
+exec：执行动态语句块
+repr：返回一个对象的字符串表现形式(给解释器)
+
+装饰器(3个)
+property：标示属性的装饰器
+classmethod：标示方法为类方法的装饰器
+staticmethod：标示方法为静态方法的装饰器
