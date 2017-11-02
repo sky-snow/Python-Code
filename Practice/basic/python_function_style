@@ -1,0 +1,33 @@
+函数式编程
+filter、map、reduce、lambda、yield
+lambda
+>>> (lambda x:x**2)(4) #返回 4 的平方
+16
+
+>>> lamb = [ lambda x:x,lambda x:x**2,lambda x:x**3,lambda x:x**4 ]
+>>> for i in lamb:
+... print i(3),
+...
+3 9 27 81
+
+map(func,list)
+func 是一个函数，seq 是一个序列对象。在执行的时候，序列对象中的每个元素，按照从左到右的顺序，依次被
+取出来，并塞入到 func 那个函数里面，并将 func 的返回值依次存到一个 list 中。
+>>> numbers
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] #把列表中每一项都加 3
+>>> map(add,numbers) #add(x) 是上面讲述的那个函数，但是这里只引用函数名称即可
+[3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+>>> map(lambda x: x+3,numbers) #用 lambda 当然可以啦
+[3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+reduce(func,list)
+map是上下运算，reduce 是横着逐个元素进行运算。
+>>> reduce(lambda x,y: x+y,[1,2,3,4,5])
+15
+
+filter(func,list)
+>>> numbers = range(-5,5)
+>>> numbers
+[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]
+>>> filter(lambda x: x>0, numbers)
+[1, 2, 3, 4]

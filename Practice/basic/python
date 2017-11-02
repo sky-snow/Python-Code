@@ -41,6 +41,14 @@ Remove the first item from the list whose value is x. It is an error if there is
 list.pop([i])
 list.reverse()  list.sort()
 
+list.sort(data, cmp=None, key=None, reverse=False)
+其中，data是待排序数据，可以使List或者iterator, cmp和key都是函数，这两个函数作用与data的元素上产生一个结果，sorted方法根据这个结果来排序。 
+cmp(e1, e2) 是带两个参数的比较函数, 返回值: 负数: e1 < e2, 0: e1 == e2, 正数: e1 > e2. 默认为 None, 即用内建的比较函数. 
+key 是带一个参数的函数, 用来为每个元素提取比较值. 默认为 None, 即直接比较每个元素. 
+通常, key 和 reverse 比 cmp 快很多, 因为对每个元素它们只处理一次; 而 cmp 会处理多次. 
+students = [('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
+list.sort(students, key=lambda student : student[2])
+
 list 和 str 的最大区别是：list 是可以改变的，str 不可变
 多维 list
 list 和 str 转化  split() 和 join()
@@ -378,39 +386,6 @@ enumerate
 >>> squares
 [1, 4, 9, 16, 25, 36, 49, 64, 81]
 
-函数式编程
-filter、map、reduce、lambda、yield
-lambda
->>> (lambda x:x**2)(4) #返回 4 的平方
-16
-
->>> lamb = [ lambda x:x,lambda x:x**2,lambda x:x**3,lambda x:x**4 ]
->>> for i in lamb:
-... print i(3),
-...
-3 9 27 81
-
-map(func,seq)
-func 是一个函数，seq 是一个序列对象。在执行的时候，序列对象中的每个元素，按照从左到右的顺序，依次被
-取出来，并塞入到 func 那个函数里面，并将 func 的返回值依次存到一个 list 中。
->>> numbers
-[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] #把列表中每一项都加 3
->>> map(add,numbers) #add(x) 是上面讲述的那个函数，但是这里只引用函数名称即可
-[3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
->>> map(lambda x: x+3,numbers) #用 lambda 当然可以啦
-[3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-
-reduce
-map是上下运算，reduce 是横着逐个元素进行运算。
->>> reduce(lambda x,y: x+y,[1,2,3,4,5])
-15
-
-filter
->>> numbers = range(-5,5)
->>> numbers
-[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]
->>> filter(lambda x: x>0, numbers)
-[1, 2, 3, 4]
 
 数学运算(7个)
 类型转换(24个)

@@ -1,0 +1,9 @@
+#coding=utf-8
+'''
+1.环境搭建
+2.urllib和BeautifulSoup
+3.存储数据到MySQL
+4.常见文档读取(TXT,PDF)
+5.使用爬虫需要注意什么
+6.总结
+'''
