@@ -11,7 +11,24 @@
 			 获取待爬取URL
 			 判断是否有待爬取URL
 			 将URL从未爬取移动到已爬取
-4.网页下载器(urllib2)
+	实现方式:
+		1.内存:python内存--待爬取URL集合:set(),已爬取URL集合:set()
+		2.关系数据库:mysql:urls(url,is_crawled)
+		3.缓存数据库中:redis:待爬取URL集合:set(),已爬取URL集合:set()
+4.网页下载器(urllib2:基础的模块,request:第三方插件，功能强大)
+	将互联网上的URL对应的网页下载到本地的工具
+	urllib2下载网页的方法:
+		1.urlopen(url)
 5.网页解析器(BeautifulSoup)
 '''
 
+import urllib
+#直接请求
+response=urllib.urlopen('http://www.baidu.com')
+
+#获取状态码，如果是200表示获取成功
+print(response.getcode())
+
+#读取内容
+cont=response.read()
+print(cont)
