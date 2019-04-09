@@ -30,7 +30,7 @@ bytearray.split（sep = None，maxsplit = -1）
 Python的数据有两种索引方式：最左边以0开始，依次增加；最右边的元素索引为-1，往左依次减少
 
 -5  -4  -3  -2  -1
-h  	 e   l   l   o
+ h   e   l   l   o
  0   1   2   3   4
 
  [1:4]=123=ell
