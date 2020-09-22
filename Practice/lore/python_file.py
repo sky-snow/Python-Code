@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 '''
 1.文件概念
 	在Linux中一切皆文件
@@ -24,22 +24,22 @@
 8.os模块文件操作
 '''
 
-#读取操作
-#迭代器
-f=open('pythontest')
-iter_f=iter(f)
-lines=0
+# 读取操作
+# 迭代器
+f = open('pythontest')
+iter_f = iter(f)
+lines = 0
 for line in iter_f:
-	lines+=1
-	# print(line)
+    lines += 1
+# print(line)
 print(lines)
 f.close()
 
-#写入操作,关闭之后才会写入到文件，因为涉及到文件缓冲机制
-#解决方案
-#1.主动调用close()或者flush方法，写缓存同步到磁盘
-#2.写入数据量大于或者等于写缓存，写缓存同步到磁盘
-f=open('pythontest2','w')
+# 写入操作,关闭之后才会写入到文件，因为涉及到文件缓冲机制
+# 解决方案
+# 1.主动调用close()或者flush方法，写缓存同步到磁盘
+# 2.写入数据量大于或者等于写缓存，写缓存同步到磁盘
+f = open('pythontest2', 'w')
 f.write('hello pythontest2')
 f.flush()
 f.close()
@@ -49,7 +49,7 @@ f.close()
 # f.writelines(['1','2','3'])
 # f.close()
 
-#文件的关闭
+# 文件的关闭
 '''
 1.将写缓存同步到磁盘
 2.Linux系统中每个进程打开文件的个数是有限的
@@ -58,17 +58,20 @@ f.close()
 查看进程限制数
 cat /proc/进程ID/limits    fileno 文件对象属性每次打开+1
 '''
+
+
 def test_open_file_limits():
-	list_f=[]
-	for x in range(1025):
-		list_f.append(open('pythontest2','w'))
-		print('%d:%d' %(x,list_f[x].fileno()))
+    list_f = []
+    for x in range(1025):
+        list_f.append(open('pythontest2', 'w'))
+        print('%d:%d' % (x, list_f[x].fileno()))
+
 
 # test_open_file_limits()   #打开太多会报错
 
 
-#python读取和写入的问题
-#文件指针
+# python读取和写入的问题
+# 文件指针
 '''
 问题1：每次写文件后，必须重新打开才能读取文件
 问题2：读取文件后，无法重新读取读过的内容
@@ -87,7 +90,7 @@ f.tell()
 f.seek(int,os....)
 '''
 
-#文件对象的属性
+# 文件对象的属性
 '''
 file.fileno()   文件描述符
 file.mode		文件打开权限
@@ -95,31 +98,33 @@ file.encoding	文件编码格式
 file.closed		文件是否关闭
 '''
 
-#标准文件
+# 标准文件
 '''
 文件标准输入:sys.stdin
 文件标准输出:sys.stdout
 文本标准错误:sys.stderr
 '''
-#文件命令行参数
+# 文件命令行参数
 import sys
+
 if __name__ == '__main__':
-	print len(sys.argv)
-	for arg in sys.argv:
-		print arg
+    print(len(sys.argv))
+    for arg in sys.argv:
+        print(arg)
 
-#文件的编码格式
+# 文件的编码格式
+
 # u'自由的雪'  #无法写入Unicode字符，先转换为utf-8,然后写入到文件
-a=unicode.encode(u'自由的雪','utf-8')
-print(a)
+# a=unicode.encode(u'自由的雪','utf-8')
+# print(a)
 
 
-#问题：如何创建指定编码格式的文件
-#使用codecs模块提供方法创建指定编码格式文件
+# 问题：如何创建指定编码格式的文件
+# 使用codecs模块提供方法创建指定编码格式文件
 # open(fname,mode,encoding,errors,buffering)
 
 
-#os模块
+# os模块
 '''
 os.open(filename,flag[,mode])
 flag:打开文件方式
@@ -134,28 +139,29 @@ os.lseek(fd,pos,how):文件指针操作
 os.close(fd):关闭文件
 '''
 
-#文件练习
+# 文件练习
 '''
 int配置文件格式
 节:			[session]
 参数(键=值)  name=value
 '''
-import ConfigParser
-cfg=ConfigParser.ConfigParser()  #生成ConfigParser对象
-cfg.read('python.ini')			 #读取配置文件
-cfg.sections()					 #读取节的值[],并返回一个list
+import configparser
+
+cfg = configparser.ConfigParser()  # 生成ConfigParser对象
+cfg.read('python.ini')  # 读取配置文件
+cfg.sections()  # 读取节的值[],并返回一个list
+
 
 def display(cfg):
-	for se in cfg.sections():
-		print(se)
-		print(cfg.items(se)) #迭代节中的内容
-
-display(cfg)
-cfg.set('userinfo','pwd','123456')
-display(cfg)
-cfg.set('userinfo','email','skysnow2017@gmail.com')
-display(cfg)
-cfg.remove_option('userinfo','email')
-display(cfg)
+    for se in cfg.sections():
+        print(se)
+        print(cfg.items(se))  # 迭代节中的内容
 
 
+display(cfg)
+cfg.set('userinfo', 'pwd', '123456')
+display(cfg)
+cfg.set('userinfo', 'email', 'skysnow2017@gmail.com')
+display(cfg)
+cfg.remove_option('userinfo', 'email')
+display(cfg)

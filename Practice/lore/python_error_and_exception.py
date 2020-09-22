@@ -95,29 +95,29 @@ with应用场景
 '''
 # 5.标准异常与自定义异常
 # BaseException KeyboardInterrupt Exception SystemExit 
-class FileError(IOError):
-	pass
-
-
-try:
-	raise FileError,'Test FileError'
-except FileError as e:
-	print e
-
-class CustomError(Exception):
-	def __init__(self,info):
-		Exception.__init__(self)
-		self.errorinfo=info
-		print id(self)
-
-	def __str__(self):
-		return self.errorinfo
-
-try:
-	raise CustomError('Test CustomError')
-	#将异常对象保存到了e这个参数当中
-except CustomError as e:
-	print e,id(e)
+# class FileError(IOError):
+# 	pass
+#
+#
+# try:
+# 	raise FileError,'Test FileError'
+# except FileError as e:
+# 	print e
+#
+# class CustomError(Exception):
+# 	def __init__(self,info):
+# 		Exception.__init__(self)
+# 		self.errorinfo=info
+# 		print id(self)
+#
+# 	def __str__(self):
+# 		return self.errorinfo
+#
+# try:
+# 	raise CustomError('Test CustomError')
+# 	#将异常对象保存到了e这个参数当中
+# except CustomError as e:
+# 	print e,id(e)
 
 # 6.raise与assert语句
 '''

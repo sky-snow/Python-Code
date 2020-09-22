@@ -21,27 +21,32 @@ host port uesr passwd db charset
 4.python执行增删改查
 5.完整实例:银行转账
 '''
-import MySQLdb
-conn=MySQLdb.Connect(host='127.0.0.1',
-                         port=3306,
-                         user='root',
-                         passwd='skysnow',
-                         db='imooc',
-                         charset='utf8'
-                         )
-cursor=conn.cursor()
-
-insert="insert into user values(1,'sky','kkkkk','i am bad man')"
-try:
-    cursor.execute(insert)
-    conn.commit()
-except Exception as e:
-    print e
-    conn.rollback()
-    print cursor.rowcount
-    cursor.execute("select * from user")
-    print cursor.fetchone()
-
-cursor.close()
-conn.close()
+import mysql.connector
+cnx = mysql.connector.connect(user='root', password='aeroland',
+                              host='127.0.0.1',
+                              database='imooc')
+cnx.close()
+# import MySQLdb
+# conn=MySQLdb.Connect(host='127.0.0.1',
+#                          port=3306,
+#                          user='root',
+#                          passwd='skysnow',
+#                          db='imooc',
+#                          charset='utf8'
+#                          )
+# cursor=conn.cursor()
+#
+# insert="insert into user values(1,'sky','kkkkk','i am bad man')"
+# try:
+#     cursor.execute(insert)
+#     conn.commit()
+# except Exception as e:
+#     print e
+#     conn.rollback()
+#     print cursor.rowcount
+#     cursor.execute("select * from user")
+#     print cursor.fetchone()
+#
+# cursor.close()
+# conn.close()
 
